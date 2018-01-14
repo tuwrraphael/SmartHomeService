@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SmartHomeService.Impl;
+using SmartHomeService.Models;
+using SmartHomeService.Services;
 
 namespace SmartHomeService
 {
@@ -23,6 +26,9 @@ namespace SmartHomeService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ParticleConfig>(Configuration);
+            services.AddTransient<IHifiRepository, StaticHifiRepository>();
+            services.AddTransient<IHifiControllerFactory, HifiControllerFactory>();
             services.AddMvc();
         }
 
